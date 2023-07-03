@@ -7,6 +7,7 @@
     /*font-family: 'Schoolbell' , cursive;*/
     font-family:Verdana, Geneva, Tahoma, sans-serif;
 }
+
 /*
 body{
 	background: #ffffff;
@@ -17,7 +18,18 @@ body{
 html{
     scroll-behavior: smooth;
 }
+body {
+    font-family: 'Roboto', sans-serif;
+}
 
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: 'Boogaloo', cursive;
+}
 /* BARRA DE NAV */
 header{
 	width: 100%;
@@ -93,52 +105,92 @@ header{
     color: #ffffff;
 }
 
-/* SLIDER SIN JAVA */
-.container{
-    margin: auto;
-    background-color: rgb(255, 255, 255);
-    width: 800px;
-    padding: 30px;
-    margin-bottom: 40px;
-  }
-  
-  ul, li {
-      padding: 0;
-      margin: 0;
-      list-style: none;
-  }
-  
-  ul.slider{
-    position: relative;
-    width: 800px;
-    height: 300px;
-  }
-  
-  ul.slider li {
-      position: absolute;
-      left: 0px;
-      top: 0px;
-      opacity: 0;
-      width: inherit;
-      height: inherit;
-      transition: opacity .5s;
-      background:#fff;
-  }
-  
-  ul.slider li img{
+/* SLIDER SIN JAVA */ 
+.container {
     width: 100%;
-    height: 300px;
+    height: 85vh;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .slider {
+    width: 300%; /* Ancho total de los slides (100% x cantidad de slides) */
+    height: 100%;
+    display: flex;
+    transition: transform 0.5s ease;
+  }
+
+  .slide {
+    width: 33.33%; /* Ancho de cada slide (100% / cantidad de slides) */
+    height: 100%;
+  }
+
+  .slide img {
+    width: 100%;
+    height: 100%;
     object-fit: cover;
   }
-  
-  ul.slider li:first-child {
-      opacity: 1; /*Mostramos el primer <li>*/
+
+  .menu {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    list-style: none;
+    display: flex;
+  }
+
+  .menu li {
+    margin: 0 5px;
+  }
+
+  .menu li a {
+    display: block;
+    width: 10px;
+    height: 10px;
+    background-color: gray;
+    border-radius: 50%;
+  }
+
+  .menu li a.active {
+    background-color: black;
   }
   
-  ul.slider li:target {
-      opacity: 1; /*Mostramos el <li> del enlace que pulsemos*/
+
+
+
+
+
+  .menu {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    background-color: rgba(255, 255, 255, 0.8);
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    margin: 0;
+    padding: 10px 0;
   }
   
+  .menu li {
+    margin: 0 5px;
+  }
+  
+  .menu li a {
+    display: block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #888;
+    text-decoration: none;
+  }
+  
+  .menu li.active a {
+    background-color: #333;
+  }
+  
+
   .menu{
     text-align: center;
     margin: 20px;
@@ -161,6 +213,19 @@ header{
     border-radius: 100%;
   }
 
+
+/* BARRA DE NAV */
+header {
+    width: 100%;
+    height: 90px;
+    background-color: #ecb176;
+    position: sticky; /* Add sticky position */
+    top: 0; /* Stick the header to the top of the viewport */
+    z-index: 1000; /* Add z-index to ensure it stays on top of other elements */
+  }
+  
+  /* ... Other CSS styles remain unchanged ... */
+  
 /* QUIENES SOMOS */
 
 .sec{
@@ -466,3 +531,71 @@ header{
         padding: 35px 0px;
     }   
 }
+
+.pie-pagina {
+    background-color: #f2f2f2;
+    padding: 20px;
+  }
+  
+  .grupo-1 {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+  
+  .box {
+    flex-basis: calc(33.33% - 20px);
+    margin-bottom: 20px;
+  }
+  
+  .box figure {
+    text-align: center;
+  }
+  
+  .box h2 {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .box p {
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  
+  .red-social {
+    margin-top: 10px;
+  }
+  
+  .red-social a {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: #3b5998;
+    color: #fff;
+    text-align: center;
+    line-height: 30px;
+    margin-right: 5px;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .red-social a.fa-instagram {
+    background-color: #e4405f;
+  }
+  
+  .red-social a:hover {
+    background-color: #333;
+  }
+  
+  .grupo-2 {
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  .grupo-2 small {
+    font-size: 12px;
+    color: #888;
+  }
+  

@@ -1,82 +1,58 @@
-const slider = document.querySelector("#slider");
-let sliderSection = document.querySelectorAll(".slider__section");
-let sliderSectionLast = sliderSection[sliderSection.length -1];
+ // Obtener elementos del DOM
+ const slider = document.querySelector('.slider');
+ const slides = Array.from(document.querySelectorAll('.slide'));
+ const menuLinks = Array.from(document.querySelectorAll('.menu li a'));
 
-const btnLeft = document.querySelector("#btn-left");
-const btnRight = document.querySelector("#btn-right");
+ let currentIndex = 0;
 
-slider.insertAdjacentElement('afterbegin',sliderSectionLast);
+ // Función para mostrar el slide actual
+ function showSlide(index) {
+   // Validar el índice
+   if (index < 0 || index >= slides.length) {
+     return;
+   }
 
-function Next() {
-    let sliderSectionFirst = document.querySelectorAll(".slider__section")[0];
-    slider.style.marginLeft ="-200%";
-    slider.style.transition ="all 0.5s";
-    setTimeout(function(){
-    slider.style.transition ="none";
-    slider.insertAdjacentElement('beforeend',sliderSectionFirst);
-    slider.style.marginLeft ="-100%";
-    }, 500); 
-}
+   // Actualizar la clase 'active' del slide y del enlace del menú
+   slides.forEach((slide, i) => {
+     slide.classList.toggle('active', i === index);
+   });
 
-function Prev() {
-    let sliderSection = document.querySelectorAll(".slider__section");
-    let sliderSectionLast = sliderSection[sliderSection.length -1];
-    slider.style.marginLeft ="0";
-    slider.style.transition ="all 0.5s";
-    setTimeout(function(){
-    slider.style.transition ="none";
-    slider.insertAdjacentElement('afterbegin',sliderSectionLast);
-    slider.style.marginLeft ="-100%";
-    }, 500); 
-}
+   menuLinks.forEach((link, i) => {
+     link.classList.toggle('active', i === index);
+   });
 
-//btnRight.addEventListener('click' , function(){
- //   Next();
-//});
+   // Calcular la posición de desplazamiento del slider
+   const slideWidth = slides[0].offsetWidth;
+   const offset = -1 * slideWidth * index;
 
-//btnLeft.addEventListener('click' , function(){
-  //  Prev();
-//});
+   // Aplicar la transformación CSS para desplazar el slider
+   slider.style.transform = `translateX(${offset}px)`;
 
-setInterval(function(){
-    Next();
-}, 3000);
+   currentIndex = index;
+ }
 
-const container = document.querySelectorAll(".container .card")
+ // Función para mostrar el siguiente slide
+ function showNextSlide() {
+   const nextIndex = (currentIndex + 1) % slides.length;
+   showSlide(nextIndex);
+ }
 
-        container.forEach(el => {
-            el.addEventListener("mousemove",(e)=> {
-                let xAxis = (window.innerWidth/2-e.pageX)/15
-                let yAxis = (window.innerHeight/2-e.pageY)/15
-                el.style.transform =`rotateY(${xAxis}deg) rotateX(${yAxis}deg)`
-            })
-        })
-        //in
-        container.forEach(el => {
-            el.addEventListener('mouseenter',(e)=>{
-                el.style.transition =`all 0.5s ease`
-                el.style.animation =`animacion 1.5s forwards`
-                el.querySelector(".title").style.transform ="translateZ(150px)"
-            })
-        })
-        //out
-        container.forEach(el => {
-            el.addEventListener('mouseleave',(e)=>{
-                el.style.transition =`all 1.5s ease`
-                el.style.animation =`none`
-                el.style.transform =`rotateY(0deg) rotateX(0deg)`
-                el.querySelector(".title").style.transform ="translateZ(0px)"
-            })
-        })
+ // Función para mostrar el slide anterior
+ function showPreviousSlide() {
+   const prevIndex = (currentIndex - 1 + slides.length) % slides.length;
+   showSlide(prevIndex);
+ }
 
-        function musicaTends(){
-            var $musica= 10;
-            
-            if ($musica>5) {
-                            $musica= "«««Rauw Alejandro»»»   "+ "    ===>Todo de Ti<===";
-            }
-            else{
-                            $musica= "No tenemos tendencias nuevas de momento";
-            }
-        document.getElementById("convert").innerHTML =$musica;
-}     
+ // Agregar eventos a los enlaces del menú
+ menuLinks.forEach((link, index) => {
+   link.addEventListener('click', (e) => {
+     e.preventDefault();
+     showSlide(index);
+   });
+ });
+
+ // Mostrar el siguiente slide automáticamente cada 5 segundos
+ setInterval(showNextSlide, 5000);
+
+ // Mostrar el primer slide al cargar la página
+ showSlide(0);
